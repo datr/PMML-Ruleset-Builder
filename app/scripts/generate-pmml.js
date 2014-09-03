@@ -34,21 +34,16 @@ function generate_transformations() {
 
 	var xml = '<LocalTransformations>';
 
-	jQuery.ajaxSetup({async:false});
-	$.get('http://localhost:8000/pmml.pegjs', function(data) {
-    	var parser = PEG.buildParser(data, {'cache' : true});
+	$.each(transforms, function (index, element) {
+		// This needs to be escaped properly:
+		xml += '<!-- ' + element.expression + ' -->';
+		xml += '<DerivedField ' + 
+		  'name="' + element.name + '" ' +
+		  'dataType="' + element.datatype + '" ' +
+		  'optype="' + element.optype + '">';
 
-    	$.each(transforms, function (index, element) {
-    		// This needs to be escaped properly:
-    		xml += '<!-- ' + element.expression + ' -->';
-			xml += '<DerivedField ' + 
-			  'name="' + element.name + '" ' +
-			  'dataType="' + element.datatype + '" ' +
-			  'optype="' + element.optype + '">';
-
-			xml += parser.parse(element.expression);
-			xml += '</DerivedField>'
-    	});
+		xml += parser.parse(element.expression);
+		xml += '</DerivedField>'
 	});
 
 	xml += '</LocalTransformations>';
