@@ -1,0 +1,26 @@
+{
+  "name": "PMML RuleSet Builder",
+  "version": "0.0.0",
+  "authors": [
+    "Dean Reilly <me@deanreilly.co.uk>"
+  ],
+  "description": "Quickly build PMML RuleSets through a graphical user interface.",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "http://rules.deanreilly.co.uk/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "google-code-prettify": "~1.0.3",
+    "jQuery-QueryBuilder": "~1.2.0",
+    "jquery.ui": "~1.11.1",
+    "vkbeautify-wrapper": "*"
+  }
+}
