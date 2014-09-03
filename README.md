@@ -2,10 +2,17 @@
 
 ## Set up
 
-The script needs to be able to access the pegjs definition file at the minute
-which requires the page to be served from a webserver and not the local file
-system.
+You will need to install:
 
-The easiest way to do this is to use python's built in web server:
+* node.js (http://nodejs.org/)
+* Bower (http://bower.io/)
+* Grunt (http://gruntjs.com/)
 
-    python -m SimpleHTTPServer
+Then in the checkout directory run:
+
+    npm install
+    bower install
+
+To serve the page run:
+
+    sudo grunt serve
