@@ -251,7 +251,9 @@ function addtransformrow (event) {
               '    <option value="dateTimeSecondsSince[1980]">Seconds Since 1980</option>' +
               '  </select></td>' +
               '  <td>' +
-              '    <textarea name="transforms[][expression]" class="form-control" rows="3"></textarea>' +
+              '    <div class="form-group">' +
+              '      <textarea name="transforms[][expression]" class="form-control" rows="3"></textarea>' +
+              '    </div>' +
               '  </td>' +
               '  <td>' +
               '    <button type="button" class="btn btn-success btn-xs addtransformrow"><span class="glyphicon glyphicon-plus"></span></button>' +
@@ -266,7 +268,37 @@ function addtransformrow (event) {
 	$("select[name='transforms[][datatype]']", $(event.target).parent().parent().next()).change(attachQueryBuilder);
 }
 
+function validateExpression(event) {
+  var expression = $(event.target).val();
+  var parent = $(event.target).parent();
+
+  if (expression == '') {
+  	$(parent).removeClass('has-error');
+  	$(parent).addClass('has-success');
+    return;
+  }
+  
+  try {
+    parser.parse(expression);
+
+  	$(parent).removeClass('has-error');
+  	$(parent).addClass('has-success');
+  	
+  	$('.help-block', parent).remove();
+  }
+  catch(err) {
+    $(parent).removeClass('has-success');
+    $(parent).addClass('has-error');
+
+    var message = "<span class=\"help-block\">" + err.message + "</span>";
+    $(event.target).after(message);
+  }
+}
+
 $('.addtransformrow').click(addtransformrow);
+
+$("textarea[name='transforms[][expression]']").change(validateExpression);
+
 
 jQuery(function($) {
     $('.sortable').sortable({
