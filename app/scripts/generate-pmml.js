@@ -275,6 +275,7 @@ function validateExpression(event) {
   if (expression == '') {
   	$(parent).removeClass('has-error');
   	$(parent).addClass('has-success');
+  	$('.help-block', parent).remove();
     return;
   }
   
@@ -290,6 +291,7 @@ function validateExpression(event) {
     $(parent).removeClass('has-success');
     $(parent).addClass('has-error');
 
+    $('.help-block', parent).remove();
     var message = "<span class=\"help-block\">" + err.message + "</span>";
     $(event.target).after(message);
   }
