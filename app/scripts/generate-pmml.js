@@ -273,8 +273,8 @@ function validateExpression(event) {
   var parent = $(event.target).parent();
 
   if (expression == '') {
-  	$(parent).removeClass('has-error');
-  	$(parent).addClass('has-success');
+    $(parent).removeClass('has-success');
+    $(parent).addClass('has-error');
   	$('.help-block', parent).remove();
     return;
   }
