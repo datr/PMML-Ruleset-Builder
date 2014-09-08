@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+  
+  <div class="panel-heading clearfix">
+    <div class="btn-group btn-group-sm pull-right">
+      <button type="button" class="btn btn-primary add-rule"><span class="glyphicon glyphicon-plus"></span></button>
+      <button type="button" class="btn btn-danger remove-rule"><span class="glyphicon glyphicon-remove-circle"></span></button>
+    </div>
+  </div>
+  
+  <div class="panel-body">
+
+    <div class="row">
+
+      <div class="col-md-4 form-group">
+        <label for="modelName">Score</label>
+        <input name="rules[][score]" type="text" class="form-control">
+        <p class="help-block">
+          The predicted value when the rule fires.
+        </p>
+      </div>
+
+      <div class="col-md-4 form-group">
+        <label for="modelName">Confidence</label>
+        <input name="rules[][confidence]" type="text" class="form-control" value="1">
+        <p class="help-block">
+          Indicates the confidence of the rule.
+        </p>
+      </div>
+
+      <div class="col-md-4 form-group">
+        <label for="modelName">Weight</label>
+        <input name="rules[][weight]" type="text" class="form-control" value="1">
+        <p class="help-block">
+          Indicates the relative importance of the rule. May or may not be
+          equal to the confidence.
+        </p>
+      </div>
+    
+    </div>
+
+    <h4>Predicate</h4>
+    
+    <div class="predicate-builder"></div>
+
+  </div>
+
+</div>

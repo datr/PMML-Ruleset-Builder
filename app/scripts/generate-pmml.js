@@ -58,7 +58,9 @@ function generate_simple_predicate(rule) {
 }
 
 function generate_compound_predicate(predicate) {
-	if (predicate['rules'].length == 1) {
+	if (!predicate.hasOwnProperty('rules')) {
+		var xml = "";
+	} else if (predicate['rules'].length == 1) {
 		var xml = generate_simple_predicate(predicate['rules'][0]);
 	} else {
 		var xml = "<CompoundPredicate booleanOperator=\"" + predicate.condition + "\">";
@@ -76,19 +78,15 @@ function generate_compound_predicate(predicate) {
 
 function generate_rules() {
 	var rules = getRules();
-	console.log(rules);
 	var xml = "";
 
 	$.each(rules, function(index, rule) {
-		xml = "<SimpleRule score=\"" + rule.score +
-				"\" confidence=\"" + rule.confidence +
-				"\" weight=\"" + rule.weight + ">";
-		
-		var predicate = $('#builder').queryBuilder('getRules');
-		xml += generate_compound_predicate(predicate);
-
-		xml += "</SimpleRule>";
-	})
+		xml += "<SimpleRule score=\"" + rule.score +
+				 "\" confidence=\"" + rule.confidence +
+				 "\" weight=\"" + rule.weight + "\">" +
+				 rule.predicate +
+				 "</SimpleRule>";
+	});
 
 	return xml;
 }
@@ -98,12 +96,12 @@ function generate_rule_set() {
 
 	xml = "<RuleSet";
 
-	if ($('input[name="defaultScore"]').value() != '') {
-		xml += " defaultScore=\"" + $('input[name="defaultScore"]').value() + "\"";
+	if ($('input[name="defaultScore"]').val() != '') {
+		xml += " defaultScore=\"" + $('input[name="defaultScore"]').val() + "\"";
 	}
 
-	if ($('input[name="defaultConfidence"]').value() != '') {
-		xml += " defaultConfidence=\"" + $('input[name="defaultConfidence"]').value() + "\"";
+	if ($('input[name="defaultConfidence"]').val() != '') {
+		xml += " defaultConfidence=\"" + $('input[name="defaultConfidence"]').val() + "\"";
 	}
 
 	xml += ">";
@@ -127,7 +125,7 @@ function generate_model() {
 
 	xml += generate_transformations();
 
-	xml += generate_rules();
+	xml += generate_rule_set();
 
 	xml += "</RuleSetModel>";
 
@@ -173,7 +171,7 @@ function generate() {
 
   pmml = vkbeautify.xml(pmml);
   pmml = escapeHtml(pmml);
-  $('#pmml').html(pmml).removeClass('prettyprinted');
+  $('#generated-pmml').html(pmml).removeClass('prettyprinted');
   prettyPrint();
 }
 

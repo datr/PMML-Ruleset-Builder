@@ -53,5 +53,11 @@ function getRules() {
 		rules[index]['weight'] = $(element).val();
 	});
 
+	$('.predicate-builder').each(function (index, element) {
+		var predicate = $(element).queryBuilder('getRules');
+		console.log(predicate);
+		rules[index]['predicate'] = generate_compound_predicate(predicate);
+	});
+
 	return rules;
 }

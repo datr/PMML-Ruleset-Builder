@@ -183,6 +183,17 @@ module.exports = function(grunt) {
       }
     },
 
+    handlebars: {
+      compile: {
+        options: {
+          namespace: "JST"
+        },
+        files: {
+          "<%= config.app %>/scripts/templates.js": "<%= config.app %>/partials/*.hbs"
+        }
+     }
+  },
+
     // Renames files for browser caching purposes
     rev: {
       dist: {
@@ -353,9 +364,10 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('build', [
-  	'clean:dist',
-  	'wiredep',
+    'clean:dist',
+    'wiredep',
     'peg',
+    'handlebars',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
